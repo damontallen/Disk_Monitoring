@@ -1,4 +1,3 @@
-
 ## Installation of smartmontools and postfix
 
 # ####Goal: Monitor the health of attached hard drives and send an email alert about a failure or pending failure.
@@ -195,7 +194,7 @@ additional = """DEVICESCAN -a \ #Monitor all health activities on all connected 
            -R 5 \ #Monitor when sectors are realocated
            -l selfteststs \ #Report any problems with the selftests
            -s (S/../.././18|L/../../6/19) \ #Run a short test at 6pm every night and a long test at 7pm on Saturdays
-           -m USERID@gmail.com \ #Email any detected problems to this email address
+           -m USERID@gmail.com  #Email any detected problems to this email address
            """ #add '-M test'  #To test the email function upon startup 
 additional = additional.replace('USERID',gmail_ID)
 print("Adding the following to the /etc/smartd.conf file:\n")

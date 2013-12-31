@@ -192,7 +192,7 @@ additional = """DEVICESCAN -a \ #Monitor all health activities on all connected 
            -I 194 \ #Ignore the temperature fluctuations on the SATA drives
            -W 4,45,55 \ #Warn when the drive temperatures fluctuate more than 4 degC, or are outside 45 to 55 degC
            -R 5 \ #Monitor when sectors are realocated
-           -l selfteststs \ #Report any problems with the selftests
+           -l selftest \ #Report any problems with the selftests
            -s (S/../.././18|L/../../6/19) \ #Run a short test at 6pm every night and a long test at 7pm on Saturdays
            -m USERID@gmail.com  #Email any detected problems to this email address
            """ #add '-M test'  #To test the email function upon startup 

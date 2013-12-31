@@ -24,7 +24,7 @@
 
 ### Get gmail address and password
 
-# In[4]:
+# In[ ]:
 
 import getpass
 mod = [] # list of modifications that were made
@@ -35,11 +35,9 @@ gmail_ID, domain = gmail_address.split('@')
 assert domain.lower()=='gmail.com', "You must use a gmail address"
 
 
-
-
 ### Installing packages
 
-# In[20]:
+# In[ ]:
 
 import os
 
@@ -76,7 +74,7 @@ user = user_byte.decode('ascii')
 #     #smartd_opts="--interval=1800"
 # from the /etc/default/smartmontools file
 
-# In[24]:
+# In[ ]:
 
 content = []
 original = []
@@ -112,7 +110,7 @@ os.system('sudo cp smartmontools /etc/default/smartmontools')
 
 ##### Get the current file
 
-# In[52]:
+# In[ ]:
 
 content = []
 original = []
@@ -133,12 +131,7 @@ if "main.cf_orig" not in Files:
             f.write(line)
 
 
-# Out[52]:
-
-#     Writing the original contents of /etc/postfix/main.cf to main.cf_orig
-# 
-
-# In[53]:
+# In[ ]:
 
 additional = """# sets gmail as relay
 relayhost = [smtp.gmail.com]:587 
@@ -174,7 +167,7 @@ for line in add:
         content+=[line+'\n']
 
 
-# In[55]:
+# In[ ]:
 
 with open('main.cf', 'w') as f:
     for line in content:
@@ -190,7 +183,7 @@ os.system('sudo cp main.cf /etc/postfix/main.cf')
 
 ### Edit /etc/smartd.conf
 
-# In[61]:
+# In[ ]:
 
 print("Based on information found at: ")
 print("http://blog.shadypixel.com/monitoring-hard-drive-health-on-linux-with-smartmontools/")
@@ -218,6 +211,8 @@ with open('/etc/smartd.conf', 'r') as f:
         else:
             text = line
         content.append(text)
+for line in additional.split('\n'):
+    content.append(line+'\n')
 if "smartd.conf_orig" not in Files:
     with open('smartd.conf_orig', 'w') as f:
         text = "Writing the original contents of /etc/smartd.conf to smartd.conf_orig"
@@ -225,14 +220,15 @@ if "smartd.conf_orig" not in Files:
         print(text)
         for line in original:
             f.write(line)
+with open('smartd.conf', 'w') as f:
+    for line in content:
+        f.write(line)
+os.system('sudo cp smartd.conf /etc/smartd.conf')
 
-
-
-# 
 
 ### Edit /etc/postfix/sasl_passwd 
 
-# In[79]:
+# In[ ]:
 
 pwd = os.getcwd()
 if os.path.exists('/etc/postfix/sasl_passwd'):
@@ -261,12 +257,7 @@ with open("sasl_passwd",'w') as f:
         f.write(line)
 
 
-# Out[79]:
-
-#     Writing the original contents of /etc/postfix/sasl_passwd to sasl_passwd_orig
-# 
-
-# In[69]:
+# In[ ]:
 
 os.system('sudo cp sasl_passwd /etc/postfix/sasl_passwd')
 os.system('sudo postmap /etc/postfix/sasl_passwd')
@@ -280,28 +271,19 @@ os.system('cp .forward ~/.forward')
 os.system('sudo cp .forward /root/.forward')
 
 
-
-
 ### Validate Email
 
-# In[85]:
+# In[ ]:
 
 print("Testing email:")
 print("    You should recieve an email with a subject of 'Email Test' at the email you have specified.")
+print("    press crtl-D to continue")
 os.system('mail -s "Email Test" %s@gmail.com'%gmail_ID)
 print("    If you do not then there is a problem with your email setup.")
 print("Please check: http://mhawthorne.net/posts/postfix-configuring-gmail-as-relay.html for trouble shooting.")
 
 
-# Out[85]:
-
-#     Testing email:
-#         You should recieve an email with a subject of 'Email Test' at the email you have specified.
-#         If you do not then there is a problem with your email setup.
-#     Please check: http://mhawthorne.net/posts/postfix-configuring-gmail-as-relay.html for trouble shooting.
-# 
-
-# In[88]:
+# In[ ]:
 
 print('''Now that the installation is complete you may manually check the self test logs with the following command:
     
@@ -312,18 +294,11 @@ Where /dev/sda can be any disk drive listed with the following command:
     sudo fdisk -l | grep "Disk /dev"''')
 
 
-# Out[88]:
-
-#     Now that the installation is complete you may manually check the self test logs with the following command:
-#         
-#         sudo smartctl -l selftest /dev/sda
-#     
-#     Where /dev/sda can be any disk drive listed with the following command:
-#     
-#         sudo fdisk -l | grep "Disk /dev"
-# 
-
 # In[ ]:
 
 os.system("sudo /etc/init.d/smartmontools start")
+with open("Modifications.txt",'w') as f:
+    for line in mod:
+        f.write(line+'\n')
+print("Saving the modifications to Modifications.txt")
 

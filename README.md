@@ -37,3 +37,6 @@ Navigate to the directory containing the Installing.py file and enter the follow
 ## Trouble Shooting
 
 Information about trouble shooting is at the end of the [notebook](http://nbviewer.ipython.org/github/damontallen/Disk_Monitoring/blob/master/Installing.ipynb).
+
+There is some additional information about sending and recieving email from the 
+command line at [Linux mail command examples – send mails from command line](http://www.binarytides.com/linux-mail-command-examples/)

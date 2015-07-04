@@ -33,3 +33,7 @@ To use this program, either download a zipped verion of the code and unzip it or
 Navigate to the directory containing the Installing.py file and enter the following command:
 
     sudo python Installing.py
+    
+## Trouble Shooting
+
+Information about trouble shooting is at the end of the [notebook](http://nbviewer.ipython.org/github/damontallen/Disk_Monitoring/blob/master/Installing.ipynb).

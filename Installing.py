@@ -277,7 +277,7 @@ os.system('sudo cp .forward /root/.forward')
 print("Testing email:")
 print("    You should recieve an email with a subject of 'Email Test' at the email you have specified.")
 print("    press crtl-D to continue")
-os.system('mail -s "Email Test" %s@gmail.com'%gmail_ID)
+os.system('mail -s "Email Test" %s@gmail.com < /dev/null'%gmail_ID)
 print("    If you do not then there is a problem with your email setup.")
 print("Please check: http://mhawthorne.net/posts/postfix-configuring-gmail-as-relay.html for trouble shooting.")
 
